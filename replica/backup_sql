@@ -1,0 +1,10 @@
+#!/bin/bash
+pg_dump -U postgres -Cs sst > /home/backup/schema_dump
+pg_dump -U postgres -a sst >  /home/backup/data_dump
+
+cd /home/backup
+
+git add .
+git commit -m "`date`"
+git push
+

@@ -1,0 +1,16 @@
+image: docker:1.11
+
+variables:
+  STAGE_IMAGE: 'registry-gitlab.dev.architech.nyc:5005/rti/ssp-standards-editor:latest'
+  STAGE_IMAGE_DB: 'registry-gitlab.dev.architech.nyc:5005/rti/ssp-standards-editor:db'
+
+deploy:
+  stage: deploy
+  only:
+    - master
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry-gitlab.dev.architech.nyc:5005
+    - docker build -t $STAGE_IMAGE .
+    - docker push $STAGE_IMAGE
+    - docker build -t $STAGE_IMAGE_DB ./db
+    - docker push $STAGE_IMAGE_DB

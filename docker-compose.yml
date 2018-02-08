@@ -1,0 +1,32 @@
+version: '2'
+services:
+  db:
+    build: ./db
+    image: db 
+    restart: always
+    expose:
+      - 5432
+    volumes:
+      - /home/docker/db:/var/lib/postgresql/data
+    container_name: ssp-standards-editor-db
+
+  db_replica:
+    build: ./replica
+    image: replica
+    restart: always
+    expose:
+      - 5432
+    volumes:
+      - /home/docker/replica:/var/lib/postgresql/data
+    container_name: ssp-standards-editor-replica
+
+  server:
+    build: .
+    image: editor 
+    restart: always
+    ports:
+      - "12430:8000"
+    links:
+      - db:postgres
+    container_name: ssp-standards-editor
+

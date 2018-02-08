@@ -1,0 +1,10 @@
+.git
+.gitignore
+.editorconfig
+.idea
+node_modules
+*.log
+*.md
+.gitlab-ci.yml
+
+db
